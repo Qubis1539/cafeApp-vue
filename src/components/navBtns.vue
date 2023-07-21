@@ -2,7 +2,7 @@
     <div class="buttons">
         <!-- :class="[randomPressed ? 'active': '']" -->
         <div class="btn active" @click="resetClick"  >
-            <img src="@/assets/Reset.svg" alt="">
+            <img src="@/assets/refresh.svg" alt="">
         </div>
         <div class="btn" @click="randClick">
             <img src="@/assets/Dice.svg" alt="">
@@ -54,12 +54,13 @@ export default {
     
     .btn{
        
-        width: 70px;
-        height: 70px;   
+        width: 56px;
+        height: 56px;   
         display: flex;
         justify-content: center;
         align-items: center;
-        background: #e5e5e5;
+        background: #44B3C2;
+        filter: drop-shadow(0px 0px 0px rgba(0, 0, 0, 0.10)) drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.10)) drop-shadow(0px 7px 7px rgba(0, 0, 0, 0.09)) drop-shadow(0px 16px 9px rgba(0, 0, 0, 0.05)) drop-shadow(0px 28px 11px rgba(0, 0, 0, 0.01)) drop-shadow(0px 44px 12px rgba(0, 0, 0, 0.00));
         border-radius: 50%;
         cursor: pointer;
         transition: background .2s, top .6s;
@@ -70,8 +71,8 @@ export default {
     .btn:first-child{
         top: 60px;
         z-index: 4;
-        width: 50px;
-        height: 50px;
+        width: 34px;
+        height: 34px;
     }
     .btn.active{
         top: 0;
