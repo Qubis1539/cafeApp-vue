@@ -49,7 +49,7 @@ export default {
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 5px;
+        gap: 5px;z-index: 100;
     }
     
     .btn{
@@ -65,12 +65,11 @@ export default {
         cursor: pointer;
         transition: background .2s, top .6s;
         position: relative;
-        z-index: 5;
+        z-index: 100;
         
     }
     .btn:first-child{
         top: 60px;
-        z-index: 4;
         width: 34px;
         height: 34px;
     }

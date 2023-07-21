@@ -250,6 +250,7 @@ import navBtns from "@/components/navBtns.vue";
     display: flex;
     flex-direction: column;
     gap:10px;
+    width: 100%;
 }
 .cafeItem__footer{
     width: 100%;
