@@ -137,7 +137,7 @@ import navBtns from "@/components/navBtns.vue";
             if (n == undefined){
                 n = Math.round(Math.random() * (this.cafes.length - 1));
             }
-            this.allCafes = [this.cafes[Number(n)+1]];
+            this.allCafes = [this.cafes[Number(n)-1]];
            },
            resEl() {
             this.allCafes = this.cafes
