@@ -97,7 +97,7 @@ import navBtns from "@/components/navBtns.vue";
             return{
                 cafes: [],
                 allCafes: [],
-                curUrl: window.location.origin,
+                curUrl: window.location.origin + window.location.pathname,
                 msgText: "Привет, гляди какое место нашел! Кафе "
             }
             
