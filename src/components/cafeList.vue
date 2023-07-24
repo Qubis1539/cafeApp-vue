@@ -1,16 +1,31 @@
 <template>
     <div class="cafesList" >
         <div class="cafeItem" v-for="cafe in allCafes" :key="cafe.id">
+            
             <div class="cafeItem__top">
                 <img v-if="cafe.photo" :src="cafe.photo" alt="" class="cafeItem__img">
                 <img v-else  src="http://chudo-prirody.com/uploads/posts/2021-08/1628905019_37-p-skachat-foto-milikh-kotikov-41.jpg" alt="" class="cafeItem__img">
                 
                 <img v-if="cafe.business_lunch" src="@/assets/businesslunch.png" alt="" class="cafeItem__businessLunch">
+                
             </div>
+                
+            
             
             <div class="cafeItem__info">
+                <div class="cafeItem__social" v-bind:class="showShare == cafe.id ? 'active' : ''">
+                    <a class="socialLink" id="socialLink" target="_blank" :href="'http://vk.com/share.php?url='+curUrl+'?id='+cafe.id+'&title=FindCaffe&description='+msgText + cafe.name+'&noparse=true'">
+                        <img src="@/assets/vk.svg" alt="">
+                    </a>
+                    <a class="socialLink" id="socialLink" :href="'https://t.me/share/url?url='+curUrl+'?id='+cafe.id+'&text='+msgText + cafe.name" target="_blank" >
+                        <img src="@/assets/telegram.svg" alt="">
+                    </a>
+                    <a class="socialLink" id="socialLink" :href="'mailto:?subject=FindCafeeApp&amp;body='+ msgText + cafe.name+ curUrl+'?id='+cafe.id" target="_blank" >
+                        <img src="@/assets/email.svg" alt="">
+                    </a>
+                </div>
                 <div class="cafeItem__header">
-                    <a class="cafeItem__share" :href="'https://t.me/share/url?url='+curUrl+'?id='+cafe.id+'&text='+msgText + cafe.name" target="_blank"><img src="@/assets/Share.svg" class="cafeItem__share"></a>
+                    <button @click="shareClick(cafe.id)" class="cafeItem__share"><img src="@/assets/Share.svg" class="cafeItem__share"></button>
                 
                     <div class="cafeItem__cuisine">
                         <span v-if="cafe.cuisine">{{cafe.cuisine}} кухня</span>
@@ -95,9 +110,10 @@ import navBtns from "@/components/navBtns.vue";
         
         data(){
             return{
+                showShare: null,
                 cafes: [],
                 allCafes: [],
-                curUrl: window.location.origin,
+                curUrl: window.location.origin + window.location.pathname,
                 msgText: "Привет, гляди какое место нашел! Кафе "
             }
             
@@ -137,10 +153,21 @@ import navBtns from "@/components/navBtns.vue";
             if (n == undefined){
                 n = Math.round(Math.random() * (this.cafes.length - 1));
             }
-            this.allCafes = [this.cafes[n]];
+            this.allCafes = [this.cafes[Number(n)-1]];
            },
            resEl() {
             this.allCafes = this.cafes
+           },
+           shareClick(id){
+                
+                if (this.showShare == id){
+                    this.showShare =null
+                }
+                else{
+                    this.showShare = id;
+                }
+                
+
            }
         },
        mounted() {
@@ -155,6 +182,10 @@ import navBtns from "@/components/navBtns.vue";
 @import url('https://fonts.googleapis.com/css2?family=Indie+Flower&family=Ubuntu:wght@400;500&display=swap');
 :root{
     --main-color: #C37A44;
+}
+.cafeItem-top-wrp{
+    position: relative;
+    z-index: 1;
 }
 .cafesList{
     padding: 3px;
@@ -230,11 +261,38 @@ import navBtns from "@/components/navBtns.vue";
     top: 0;
     left: 0;
     background: linear-gradient(180deg, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0.00) 100%);
-
+}
+.cafeItem__social{
+    position: absolute;
+    z-index: -3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    right: 0;
+    top: 0px;
+    background: #fff;
+    border-radius: 10px 10px 0 0;
+    transition: top .4s;
+}
+.cafeItem__social.active{
+    top: -40px;
+}
+.cafeItem__social .socialLink{
+    padding: 5px;
+    display: block;
+    width: 30px;
+    height: 30px;
+}
+.cafeItem__social .socialLink img{
+    width: 100%;
+    height: 100%;
 }
 .cafeItem__info{
     padding: 20px 30px;
+   
     position: relative;
+    z-index: 12;
     display: inline-flex;
     flex-direction: column;
     justify-content: space-between;
@@ -245,18 +303,37 @@ import navBtns from "@/components/navBtns.vue";
     
     
 }
+.cafeItem__info::before{
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    background: white;
+    border-radius: 0 0 35px 35px;
+}
 .cafeItem__header{
     position: relative;
     display: flex;
     flex-direction: column;
     gap:10px;
+    width: 100%;
 }
 .cafeItem__footer{
     width: 100%;
+    position: relative;
+    z-index: 3;
+    cursor: pointer;
 }
 .cafeItem__share{
+    border: none;
+    outline: none;
+    background: white;
     position: absolute;
     right: 0;
+
     top: 0;
 }
 .cafeItem__cuisine{
@@ -284,6 +361,8 @@ import navBtns from "@/components/navBtns.vue";
     justify-self: end;
     border: none;
     outline: none;
+    position: relative;
+    z-index: 5;
     border-radius: 42px;
     background: #C37A44;
     padding: 20px 40px;
