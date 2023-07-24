@@ -49,7 +49,12 @@ export default {
         display: flex;
         flex-direction: column;
         align-items: center;
+<<<<<<< HEAD
         gap: 5px;z-index: 100;
+=======
+        gap: 5px;
+        z-index: 100;
+>>>>>>> master
     }
     
     .btn{
